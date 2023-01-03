@@ -1,9 +1,12 @@
 const express = require('express')
+const multer = require('multer')
 const app = express()
 require('dotenv').config()
 require('./config/db')
 require('./models')
 const port = process.env.PORT || 7070
+
+// const ImageModel = require('./models/Images')
 
 app.use(express.json())
 app.use(express.urlencoded({extends: true}))
@@ -19,6 +22,7 @@ app.use('/api/user', adminRoutes)
 app.use('/api/user', employeRoutes)
 app.use('/api/user', formationRoutes)
 app.use('/api/user', organismeRoutes)
+
 
 app.listen(port, () => console.log(`server is running on port ${port}`))
 

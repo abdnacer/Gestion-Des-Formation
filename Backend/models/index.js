@@ -19,7 +19,7 @@ db.role.estimatedDocumentCount((err, count) => {
       console.log("Added 'Manager' to roles collection ")
     })
 
-    new  db.role({
+    new db.role({
       name: 'employe'
     })
     .save(err => {

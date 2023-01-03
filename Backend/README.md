@@ -9,3 +9,4 @@
 4- Taper La Command `npm i mongoose` parceque mongoose une bibliothéque `Node.js` qui facilité La Communication avec une base 
     de données MongoDB, elle facilite la gestion des données, la validation de schéma et la gestion des erreurs.
 
+5- Gerer les routes d'application il y a deux route qui a se basé `/api/auth` et `/api/user`

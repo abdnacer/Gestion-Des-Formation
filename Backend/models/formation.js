@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const formationSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true, 
+    required: true,
     trim: true
   },
-  image: {
-    type: String,
+  images: {
+    type: Array,
     required: true,
     trim: true
   },
@@ -17,12 +17,12 @@ const formationSchema = mongoose.Schema({
     trim: true
   },
   debut: {
-    type: Date,
+    type: String,
     required: true,
     trim: true
   },
   fin: {
-    type: Date,
+    type: String,
     required: true,
     trim: true
   }
