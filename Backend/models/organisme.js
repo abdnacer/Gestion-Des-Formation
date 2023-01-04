@@ -20,13 +20,7 @@ const organismeSchema = mongoose.Schema({
     type: String,
     required: true,
     trim: true
-  },
-  organisme: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Organismes'
-    }
-  ]
+  }
 })
 
 module.exports = mongoose.model('Organismes', organismeSchema)

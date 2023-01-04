@@ -12,13 +12,13 @@ const port = process.env.PORT || 7070
 
 
 app.use(express.json())
-app.use(express.urlencoded({extends: true}))
+app.use(express.urlencoded({ extends: true }))
 app.use(express.static(path.join(__dirname, 'public/images')))
 
 const authRoutes = require('./routes/authRoutes/authRoutes')
 const adminRoutes = require('./routes/userRoutes/adminRoutes')
 const employeRoutes = require('./routes/userRoutes/employeRoutes')
-const formationRoutes = require('./routes/userRoutes/formationRouter')
+const formationRoutes = require('./routes/userRoutes/formationRoutes')
 const organismeRoutes = require('./routes/userRoutes/organismeRoutes')
 
 app.use('/api/auth', authRoutes)

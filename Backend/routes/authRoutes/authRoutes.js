@@ -8,12 +8,12 @@ const {
 
 const { tryCatch } = require('../../middleware/tryCatch')
 const { errorHandler } = require('../../middleware/errorHandler')
+const { authPeremission, userPermission } = require('../../middleware/permission')
 
 
-router.post('/login', tryCatch(loginUser))
-router.get('/logout', tryCatch(logout))
-// router.post('/register', tryCatch(registerUser))
-// router.get('/logout')
+router.post('/login', authPeremission, tryCatch(loginUser))
+router.get('/logout', userPermission, tryCatch(logout))
+// router.post('/register', authPeremission, tryCatch(registerUser))
 
 router.use(errorHandler)
 

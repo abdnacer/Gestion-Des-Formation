@@ -7,13 +7,14 @@ const {
 } = require('../../controllers//userControllers/organismeController')
 
 const { tryCatch } = require('../../middleware/tryCatch')
-const {errorHandler } = require('../../middleware/errorHandler')
+const { errorHandler } = require('../../middleware/errorHandler')
+const { userPermission } = require('../../middleware/permission')
 
-router.post('/add-organisme', tryCatch(addOrganisme))
-router.get('/organisme', tryCatch(getOrganisme))
-router.put('/update-organisme', tryCatch(updateOrganisme))
-router.delete('/delete-organisme', tryCatch(deleteOrganisme))
+router.post('/add-organisme', userPermission, tryCatch(addOrganisme))
+router.get('/organisme', userPermission, tryCatch(getOrganisme))
+router.put('/update-organisme/:id', userPermission, tryCatch(updateOrganisme))
+router.delete('/delete-organisme/:id', userPermission, tryCatch(deleteOrganisme))
 
-app.use(errorHandler)
+router.use(errorHandler)
 
 module.exports = router

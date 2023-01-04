@@ -58,6 +58,7 @@ const updateFormation = async (req, res) => {
     fin: fin,
     images: images
   }
+  
   if(updateFormation){
     await Formation.findByIdAndUpdate({_id: id}, updateFormation)
     .then(() => {
