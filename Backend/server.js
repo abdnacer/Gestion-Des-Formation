@@ -4,12 +4,16 @@ const app = express()
 require('dotenv').config()
 require('./config/db')
 require('./models')
+const path = require('path')
+const upload = multer({
+  dest: 'public/images/'
+})
 const port = process.env.PORT || 7070
 
-// const ImageModel = require('./models/Images')
 
 app.use(express.json())
 app.use(express.urlencoded({extends: true}))
+app.use(express.static(path.join(__dirname, 'public/images')))
 
 const authRoutes = require('./routes/authRoutes/authRoutes')
 const adminRoutes = require('./routes/userRoutes/adminRoutes')

@@ -1,18 +1,19 @@
 const Formation = require('../../models/formation')
 const fs = require('fs')
+const {deleteFile} = require('../../outils/deleteFile')
 
 const addFormation = async (req, res) => {
-  const { name, description, debut, fin } = req.body
+  const { name, description, debut, fin} = req.body
+  const images = req.file.filename
 
-  if (name == '' || description == '' || debut == '' || fin == '') throw Error('Please fill All The Fields')
-  let array = []
-  array.push(req.file.filename)
+  if (name == '' || description == '' || debut == '' || fin == '' ) throw Error('Please fill All The Fields')
+
   const newFormation = {
     name: name,
-    images: array,
     description: description,
     debut: debut,
-    fin: fin
+    fin: fin,
+    images: images
   }
 
   const isformfield = Object.values(newFormation).every(value => {
@@ -36,9 +37,17 @@ const addFormation = async (req, res) => {
   else throw Error('Invalid Data')
 }
 
+const getformation = async (req, res) => {
+  const allFormation = await Formation.find()
+
+  if(allFormation) res.send(allFormation)
+  else throw Error('Data Formation is Found')
+}
+
 const updateFormation = async (req, res) => {
   const { name, description, debut, fin } = req.body
   const { id } = req.params
+  const images = req.file.filename
 
   if(name == '' || description == '' || debut == '' || fin == '' ) throw Error('Please Fill All The Fields')
 
@@ -47,7 +56,7 @@ const updateFormation = async (req, res) => {
     description: description,
     debut: debut,
     fin: fin,
-    images: req.file.filename
+    images: images
   }
   if(updateFormation){
     await Formation.findByIdAndUpdate({_id: id}, updateFormation)
@@ -60,23 +69,24 @@ const updateFormation = async (req, res) => {
   }
 }
 
+
+// C:\Users\Youcode\Desktop\Gestion-Des-Formation\Backend\public\images\
 const deleteFormation = async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params
   try {
-    const dataFormation = await Formation.findById(id)
-    try {
-      fs.unlinkSync(`C:/Users/Youcode/Desktop/MARHABA-DELIVRY/backend/images/${dataFormation.images[0]}`)
-      res.send('delete Formation')
-    } catch (error) {
-      throw Error(error)
-    }
+    const result = await Formation.findById({ _id: id })
+    deleteFile(result.images)
+    await Formation.findOneAndDelete({ _id: id });
+    res.send("Formation deleted");
   } catch (error) {
-    throw Error(error)
+    throw new Error(error)
   }
 }
 
+
 module.exports = {
   addFormation,
+  getformation,
   updateFormation,
   deleteFormation,
 }

@@ -14,18 +14,20 @@ const storage = multer.diskStorage({
   }
 })
 
+const fileFilter = (req, file, callback) => {
+  if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+    callback(null, true)
+  }
+  else {
+    const callback = callback(new Error("Please Upload 'JPEG' or 'PNG' Or 'JPG' file"))
+    callback(callback, false)
+  }
+}
+
 //exports storage configueation et filtrage de image 
 const uploadImage = multer({
   storage: storage,
-  fileFilter: (req, file, callback) => {
-    if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
-      callback(null, true)
-    }
-    else {
-      callback(null, false)
-      return callback(res.send("Only .png, .jpg, and jpeg format allowed!"))
-    }
-  }
+  fileFilter: fileFilter
 })
 
 module.exports = uploadImage
