@@ -8,6 +8,7 @@ db.users = require('./users')
 db.role = require('./role')
 db.organisme = require('./organisme')
 db.formation = require('./formation')
+db.historique = require('./historique')
 
 db.role.estimatedDocumentCount((err, count) => {
   if(!err && count === 0){

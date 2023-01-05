@@ -1,6 +1,12 @@
 const mongoose = require('mongoose')
+mongoose.set('strictQuery', false)
 
-const DB = mongoose.connect(process.env.DB, () => console.log('Database Connected'), 
-            { useNewUrlParser: true, useUnifieldTopology: true })
+const connectDB = mongoose.connect(process.env.DB)
+  .then(() =>  {
+      console.log('Database Connected')
+  }) 
+  .catch(error => {
+      console.log(error);
+  })
 
-module.exports = DB
+module.exports = connectDB
