@@ -5,10 +5,12 @@ const historiqueSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Users'
   },
+
   formation: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Formation'
   },
+  
   organisme: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Organisme'

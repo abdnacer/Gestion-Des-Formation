@@ -63,8 +63,8 @@ const getDataUser = async (req, res) => {
 
   const user = await User.find({ role: id_role })
     .populate({ path: 'role', model: Role })
-    .populate({ path: 'formation', model: Formation })
     .populate({ path: 'organisme', model: Organisme })
+    .populate({ path: 'formation', model: Formation })
 
   if (user) res.send(user)
   else throw Error('User The Role Employe is Empty in Database')
@@ -84,6 +84,7 @@ const updateDataUser = async (req, res) => {
   const user_data_update = await User.findByIdAndUpdate({ _id: id }, { $set: updateDataUser })
 
   if (user_data_update) {
+
     const addDataHistorique = {
       users: id,
       organisme: organisme,
@@ -118,7 +119,6 @@ const getDataHistorique = async (req, res) => {
   if (dataHistorique) res.send(dataHistorique)
   else throw Error('Historique Not Found')
 }
-
 
 module.exports = {
   addEmploye,
