@@ -10,10 +10,10 @@ function Login() {
     { type: 'email', name: 'email', id: 'email', placeholder: 'Email' },
     { type: 'password', name: 'password', id: 'password', placeholder: 'Password' }
   ]
+
   const [user, setUser] = useState({ email:'', password: '' })
 
   const onChange = (e) => {
-    
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
