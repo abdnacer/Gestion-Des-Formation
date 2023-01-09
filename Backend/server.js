@@ -2,6 +2,7 @@ const express = require('express')
 const multer = require('multer')
 const app = express()
 require('dotenv').config()
+const cors = require("cors");
 require('./config/db')
 require('./models')
 const path = require('path')
@@ -11,6 +12,7 @@ const upload = multer({
 const port = process.env.PORT || 7070
 
 
+app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extends: true }))
 app.use(express.static(path.join(__dirname, 'public/images')))

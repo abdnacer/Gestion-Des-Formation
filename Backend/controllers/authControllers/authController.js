@@ -39,7 +39,7 @@ const loginUser = async (req, res) => {
       const role = await getRoleById(user.role)
       const token = generateToken(user.id)
       Storage('token', token)
-      res.json({
+      res.send({
         id: user._id,
         first_name: user.first_name,
         last_name: user.last_name,

@@ -1,8 +1,11 @@
-import {React, useState} from "react"
+import { React, useState } from "react"
 import LoginImage from '../../assets/login.jpg'
 import LogoImage from '../../assets/logo.png'
 import Input from "../../components/Input"
 import Button from "../../components/Button"
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
+import apiLogin from "../../actions/auth"
 
 function Login() {
 
@@ -11,10 +14,22 @@ function Login() {
     { type: 'password', name: 'password', id: 'password', placeholder: 'Password' }
   ]
 
-  const [user, setUser] = useState({ email:'', password: '' })
+  const [user, setUser] = useState({ email: '', password: '' })
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value })
+  }
+
+  const dispatch = useDispatch()
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(apiLogin(user.email, user.password))
+  }
+
+  if (useSelector((state) => state.isLoggedIn)) {
+    window.location.reload()
+    return <Navigate to="/dashboard" />;
   }
 
   return (
@@ -29,7 +44,7 @@ function Login() {
           </div>
 
           <div className="h-58 px-24 flex flex-col justify-center ">
-            <form>
+            <form onSubmit={onSubmit}>
               {
                 InputLogin.map((inputChild, index) => (
                   <div key={index} class="relative z-0 w-full mb-6 group">
