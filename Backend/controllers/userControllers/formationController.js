@@ -1,12 +1,12 @@
 const Formation = require('../../models/formation')
 const fs = require('fs')
-const {deleteFile} = require('../../outils/deleteFile')
+const { deleteFile } = require('../../outils/deleteFile')
 
 const addFormation = async (req, res) => {
-  const { name, description, debut, fin} = req.body
+  const { name, description, debut, fin } = req.body
   const images = req.file.filename
 
-  if (name == '' || description == '' || debut == '' || fin == '' ) throw Error('Please fill All The Fields')
+  if (name == '' || description == '' || debut == '' || fin == '') throw Error('Please fill All The Fields')
 
   const newFormation = {
     name: name,
@@ -39,9 +39,7 @@ const addFormation = async (req, res) => {
 
 const getformation = async (req, res) => {
   const allFormation = await Formation.find()
-
-  if(allFormation) res.send(allFormation)
-  else throw Error('Data Formation is Found')
+  res.json({ allFormation })
 }
 
 const updateFormation = async (req, res) => {
@@ -49,7 +47,7 @@ const updateFormation = async (req, res) => {
   const { id } = req.params
   const images = req.file.filename
 
-  if(name == '' || description == '' || debut == '' || fin == '' ) throw Error('Please Fill All The Fields')
+  if (name == '' || description == '' || debut == '' || fin == '') throw Error('Please Fill All The Fields')
 
   const updateFormation = {
     name: name,
@@ -58,15 +56,15 @@ const updateFormation = async (req, res) => {
     fin: fin,
     images: images
   }
-  
-  if(updateFormation){
-    await Formation.findByIdAndUpdate({_id: id}, updateFormation)
-    .then(() => {
-      res.send('Formation is Updated')
-    })
-    .catch(err => {
-      throw Error(err)
-    })
+
+  if (updateFormation) {
+    await Formation.findByIdAndUpdate({ _id: id }, updateFormation)
+      .then(() => {
+        res.send('Formation is Updated')
+      })
+      .catch(err => {
+        throw Error(err)
+      })
   }
 }
 

@@ -28,8 +28,7 @@ const addOrganisme = async (req, res) => {
 const getOrganisme = async (req, res) => {
   const allOrganisme = await Organisme.find()
 
-  if (allOrganisme) res.send(allOrganisme)
-  else throw Error('Data Organisme is found')
+  res.json({allOrganisme})
 }
 
 const updateOrganisme = async (req, res) => {

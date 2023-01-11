@@ -61,13 +61,11 @@ const getAdmin = async (req, res) => {
 const getDataUser = async (req, res) => {
   const id_role = '63b2b97f5dd2a6b85bb15d57'
 
-  const user = await User.find({ role: id_role })
-    .populate({ path: 'role', model: Role })
+  const users = await User.find({ role: id_role })
     .populate({ path: 'organisme', model: Organisme })
     .populate({ path: 'formation', model: Formation })
 
-  if (user) res.send(user)
-  else throw Error('User The Role Employe is Empty in Database')
+  res.json({ users })
 }
 
 const updateDataUser = async (req, res) => {
@@ -97,10 +95,10 @@ const updateDataUser = async (req, res) => {
       formation: addDataHistorique.formation
     })
 
-    if(getHistorique){
+    if (getHistorique) {
       throw Error('Change The Content Of Input')
     }
-    else{
+    else {
       const story_data_historique = await Historique.create(addDataHistorique)
       if (story_data_historique) res.send('Update Success')
       else throw Error('Updated Not Success')

@@ -1,4 +1,4 @@
-import { React, useState } from "react"
+import { React, useState, useEffect } from "react"
 import LoginImage from '../../assets/login.jpg'
 import LogoImage from '../../assets/logo.png'
 import Input from "../../components/Input"
@@ -21,15 +21,19 @@ function Login() {
   }
 
   const dispatch = useDispatch()
+  
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(apiLogin(user.email, user.password))
   }
 
-  if (useSelector((state) => state.isLoggedIn)) {
-    window.location.reload()
-    return <Navigate to="/dashboard" />;
+  
+  const select = useSelector((state) => state.isLoggedIn)
+
+  if(select){
+    // return <Navigate to={`/dashboard/${user.role}`} />;
+    return <Navigate to="/dashboard/admin" />
   }
 
   return (
