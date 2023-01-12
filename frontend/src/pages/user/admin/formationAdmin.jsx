@@ -1,6 +1,9 @@
 import { React, useState, useEffect } from 'react'
 import axios from 'axios'
 import ReactImg from '../../../assets/Reactjs.jpg'
+import {IoIosAddCircle} from 'react-icons/io'
+import Button from '../../../components/Button'
+
 
 const imagePath = 'http://localhost:8088/images'
 
@@ -37,7 +40,8 @@ const FormationAdmin = () => {
             </div>
           </div>
         </div>
-      ))}
+      ))}      
+      <Button type='submit' className='w-16 h-16 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', left: '25px' }} btn={<IoIosAddCircle />} />
     </div>
   )
 }

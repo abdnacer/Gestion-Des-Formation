@@ -6,7 +6,7 @@ import { FiUser, FiSettings } from 'react-icons/fi'
 import { IoIosAddCircle } from 'react-icons/io'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { GiStarFormation } from 'react-icons/gi'
-import { GrOrganization } from 'react-icons/gr' 
+import { GrOrganization } from 'react-icons/gr'
 import Logo from '../../assets/Logo_white_without_background.png'
 import Profile from '../../assets/profil.png'
 import Button from '../Button'
@@ -16,8 +16,8 @@ function Sidebar() {
   const MenusAdmin = [
     { name: 'Dashboard', route: '', icon: <MdOutlineDashboard /> },
     { name: 'Employe', route: 'employe', icon: <FiUser />, margin: true, add: true },
-    { name: 'Formation', route: 'formation', icon: <GiStarFormation /> , add: true },
-    { name: 'Organisme', route: 'organisme', icon: <GrOrganization /> , add: true },
+    { name: 'Formation', route: 'formation', icon: <GiStarFormation />, add: true },
+    { name: 'Organisme', route: 'organisme', icon: <GrOrganization />, add: true },
     { name: 'Setting', route: 'setting', icon: <FiSettings />, margin: true },
   ]
 
@@ -46,10 +46,9 @@ function Sidebar() {
             {/* {MenusAdmin.map((menu) => (
               menu.add ? <button>Add</button> : '')
             )} */}
-            <Button type='submit' className='w-16 h-16 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', left: '25px' }} btn={<IoIosAddCircle />} />
           </div>
         </div>
-        
+
         <div className={`${open ? "ml-80" : "ml-20"} pt-2 pr-2 text-2xl font-semibold flex-1 h-screen`}>
           <nav className="bg-[#82C3EC] border-gray-200 px-2 sm:px-4 py-2.5 rounded-md ">
             <div className="container flex flex-wrap items-center justify-between mx-auto">
@@ -62,8 +61,7 @@ function Sidebar() {
               </button>
             </div>
           </nav>
-
-          <Outlet />
+            <Outlet />
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FiEdit } from 'react-icons/fi'
+import { IoIosAddCircle } from 'react-icons/io'
+import Button from '../../../components/Button'
 import axios from 'axios'
 
 const EmployeAdmin = () => {
@@ -66,6 +68,7 @@ const EmployeAdmin = () => {
           </tbody>
         </table>
       </div>
+      <Button type='submit' className='w-16 h-16 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', left: '25px' }} btn={<IoIosAddCircle />} />
     </div>
   )
 }
