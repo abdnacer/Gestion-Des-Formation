@@ -30,6 +30,8 @@ function Login() {
 
   
   const select = useSelector((state) => state.isLoggedIn)
+  // const storage = localStorage.getItem('user')
+  console.log(localStorage.getItem('usser'))
 
   if(select){
     // return <Navigate to={`/dashboard/${user.role}`} />;

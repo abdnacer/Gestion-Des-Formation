@@ -12,9 +12,7 @@ const getDataEmploye = async (req, res) => {
   const userEmploye = await User.find({ role: id_role })
     .populate({ path: 'organisme', model: Organisme })
     .populate({ path: 'formation', model: Formation })
-
-  if (userEmploye) res.send(userEmploye)
-  else throw Error('User The Role Employe Empty')
+    res.json({userEmploye})
 }
 
 const getDataHistorique = async(req, res) => {

@@ -43,8 +43,8 @@ const getformation = async (req, res) => {
 }
 
 const updateFormation = async (req, res) => {
-  const { name, description, debut, fin } = req.body
   const { id } = req.params
+  const { name, description, debut, fin } = req.body
   const images = req.file.filename
 
   if (name == '' || description == '' || debut == '' || fin == '') throw Error('Please Fill All The Fields')

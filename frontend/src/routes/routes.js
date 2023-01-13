@@ -27,6 +27,10 @@ function RoutesApp() {
             <Route path='organisme' element={<OrganismeAdmin />} />
             <Route path='setting' element={<SettingAdmin />} />
           </Route>
+
+          <Route path='/dshboard/employe' element={<Dashboard />}>
+            <Route path='' element={<DashbordAdmin />} />
+          </Route>
         </Routes>
       </Router>
     </Provider>

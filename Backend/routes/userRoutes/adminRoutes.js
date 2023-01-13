@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {
   addEmploye,
   getAdmin,
-  getDataUser,
+  // getDataUser,
   updateDataUser,
   getDataHistorique
 } = require('../../controllers/userControllers/adminController')
@@ -13,7 +13,7 @@ const { userPermission } = require('../../middleware/permission')
 
 router.post('/admin/add-employe', userPermission, tryCatch(addEmploye))
 router.get('/admin', userPermission, tryCatch(getAdmin))
-router.get('/admin/user', userPermission, tryCatch(getDataUser))
+// router.get('/admin/user', userPermission, tryCatch(getDataUser))
 router.put('/admin/update-user/:id', userPermission, tryCatch(updateDataUser))
 router.get('/admin/historique', userPermission, tryCatch(getDataHistorique))
 
