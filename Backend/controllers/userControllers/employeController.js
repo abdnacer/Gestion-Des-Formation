@@ -12,23 +12,36 @@ const getDataEmploye = async (req, res) => {
   const userEmploye = await User.find({ role: id_role })
     .populate({ path: 'organisme', model: Organisme })
     .populate({ path: 'formation', model: Formation })
-    res.json({userEmploye})
+  res.json({ userEmploye })
 }
 
-const getDataHistorique = async(req, res) => {
-  const token = Storage ('token')
+const getDataEmployeFormation = async (req, res) => {
+  const token = Storage('token')
 
-  if(token) {
+  const token_user = await jwt.verify(token, process.env.SECRET)
+
+  const user = await User.findById({ _id: token_user.id })
+    .populate({ path: 'organisme', model: Organisme })
+    .populate({ path: 'formation', model: Formation })
+
+  res.json({user})
+}
+
+const getDataHistorique = async (req, res) => {
+  const token = Storage('token')
+
+  if (token) {
     const token_user = await jwt.verify(token, process.env.SECRET)
-    if(token_user){
-      const dataHistoriqueEmploye = await Historique.find({users: token_user.id})
-      if(dataHistoriqueEmploye) res.send(dataHistoriqueEmploye)
+    if (token_user) {
+      const dataHistoriqueEmploye = await Historique.find({ users: token_user.id })
+      if (dataHistoriqueEmploye) res.send(dataHistoriqueEmploye)
       else throw Error('Data To This Employe No Found')
-    }else throw Error('Token The User Not Correct') 
+    } else throw Error('Token The User Not Correct')
   } else throw Error('Not Token')
 }
 
 module.exports = {
   getDataEmploye,
   getDataHistorique,
+  getDataEmployeFormation
 }

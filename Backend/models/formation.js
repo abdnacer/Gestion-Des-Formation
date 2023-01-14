@@ -8,7 +8,6 @@ const formationSchema = mongoose.Schema({
   },
   images: {
     type: Array,
-    required: true,
     trim: true
   },
   description: {

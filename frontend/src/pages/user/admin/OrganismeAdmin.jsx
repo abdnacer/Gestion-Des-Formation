@@ -15,7 +15,7 @@ const Organisme = () => {
 
   const [getOrganisme, setGetOrganisme] = useState([])
   const [addOrganisme, setAddOrganisme] = useState([])
-
+  
   const [editeOrganisme, setEditeOrganisme] = useState({ name: '', phone: '', ville: '', address: '' })
 
   const modalOrganisme = [
@@ -25,12 +25,23 @@ const Organisme = () => {
     { name: 'address', type: 'text', value: `${editeOrganisme.address}`, id: 'address', placeholder: 'Address' }
   ]
 
+
+  const getDataOrganisme = async () => {
+    await axios.get(`${baseUrl}/organisme`)
+      .then(res => {
+        setGetOrganisme(res.data.allOrganisme)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   const addOneOrganisme = async (e) => {
     e.preventDefault()
     await axios.post(`${baseUrl}/add-organisme`, addOrganisme)
       .then(res => {
-        window.location.reload(false)
-        console.log(res)
+        getDataOrganisme()
+        setShowModal(false)
       })
       .catch(err => console.log(err))
   }
@@ -52,18 +63,7 @@ const Organisme = () => {
   const deleteOneOrganisme = async (id) => {
     await axios.delete(`${baseUrl}/delete-organisme/${id}`)
       .then(res => {
-        console.log('success')
-        window.location.reload(false)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  const getDataOrganisme = async () => {
-    await axios.get(`${baseUrl}/organisme`)
-      .then(res => {
-        setGetOrganisme(res.data.allOrganisme)
+        getDataOrganisme()
       })
       .catch(err => {
         console.log(err)

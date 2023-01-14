@@ -3,13 +3,11 @@ import { Link, Outlet } from 'react-router-dom'
 import { HiMenuAlt1 } from 'react-icons/hi'
 import { MdOutlineDashboard } from 'react-icons/md'
 import { FiUser, FiSettings } from 'react-icons/fi'
-import { IoIosAddCircle } from 'react-icons/io'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { GiStarFormation } from 'react-icons/gi'
 import { GrOrganization } from 'react-icons/gr'
 import Logo from '../../assets/Logo_white_without_background.png'
 import Profile from '../../assets/profil.png'
-import Button from '../Button'
 
 function Sidebar() {
 
@@ -31,21 +29,15 @@ function Sidebar() {
             <HiMenuAlt1 size={26} className='cursor-pointer' onClick={() => setOpen(!open)} />
           </div>
           <div className='mt-4 flex flex-col gap-4 relative'>
-            {MenusAdmin.map((menu, index) => (
-              <Link key={index} to={menu.route} className={`${menu.margin ? 'mt-8' : ''} flex items-center text-xl duration-200 gap-3.5 font-medium p-2 hover:bg-[#9999FF] hover:text-white rounded-md`}>
-                <div>{menu.icon}</div>
-                <h2 className={`${!open ? 'opacity-0 translate-x-28 overflow-hidden' : ''} whitespace-pre duration-500`} style={{ transitionDelay: `${index + 3}00ms` }}>{menu.name}</h2>
-                {/* {menu.add ?<button>Add</button> : ''} */}
-                {/* {`${menu.add ? <button className='w-16 h-16 fixed bg-[#9999FF] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', left: '25px' }}><IoIosAddCircle /></button> : ''}`} */}
-              </Link>
+            {MenusAdmin.map((menu, index) => (<Link key={index} to={menu.route} className={`${menu.margin ? 'mt-8' : ''} flex items-center text-xl duration-200 gap-3.5 font-medium p-2 hover:bg-[#9999FF] hover:text-white rounded-md`}>
+              <div>{menu.icon}</div>
+              <h2 className={`${!open ? 'opacity-0 translate-x-28 overflow-hidden' : ''} whitespace-pre duration-500`} style={{ transitionDelay: `${index + 3}00ms` }}>{menu.name}</h2>
+            </Link>
             ))}
             <Link to="" className={`flex items-center text-xl duration-200 gap-3.5 font-medium p-2 hover:bg-[#00C1FE] hover:text-white rounded-md`}>
               <div><AiOutlineLogout /></div>
               <h2 className={`${!open ? 'opacity-0 translate-x-28 overflow-hidden' : ''} whitespace-pre duration-500`} style={{ transitionDelay: '800ms' }}>Logout</h2>
             </Link>
-            {/* {MenusAdmin.map((menu) => (
-              menu.add ? <button>Add</button> : '')
-            )} */}
           </div>
         </div>
 
@@ -61,7 +53,7 @@ function Sidebar() {
               </button>
             </div>
           </nav>
-            <Outlet />
+          <Outlet />
         </div>
       </div>
     </div>

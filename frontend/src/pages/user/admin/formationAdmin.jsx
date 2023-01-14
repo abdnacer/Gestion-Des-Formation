@@ -14,7 +14,7 @@ const baseURL = 'http://localhost:8088/api/user'
 const FormationAdmin = () => {
 
   const [showModal, setShowModal] = useState(false)
-  const [editeShowModal, setEditeShowModal] = useState(false)
+  const [editeModal, setEditeModal] = useState(false)
 
   const [formation, setFormation] = useState([])
   const [addFormation, setAddFormation] = useState([])
@@ -23,6 +23,7 @@ const FormationAdmin = () => {
   const [formationImgEdite, setFormationImgEdite] = useState()
 
   const modalOrganisme = [
+    // value: `${editeFormation.name}`,
     { name: 'name', type: 'text', value: `${editeFormation.name}`, id: 'name', placeholder: 'Name' },
     { name: 'description', type: 'text', value: `${editeFormation.description}`, id: 'description', placeholder: 'Description' },
     { name: 'debut', type: 'date', value: `${editeFormation.debut}`, id: 'debut', placeholder: 'Date Debut' },
@@ -55,7 +56,7 @@ const FormationAdmin = () => {
       .catch(err => console.log(err))
   }
 
-  const editeDataFormation = async () => {
+  const editeDataFormation = async (e) => {
 
     const dataOneFormationEdite = new FormData()
 
@@ -65,12 +66,20 @@ const FormationAdmin = () => {
     dataOneFormationEdite.append('fin', editeFormation.fin)
     dataOneFormationEdite.append('images', formationImgEdite)
 
-    await axios.put(`${baseURL}/update-formation/${editeFormation._id}`, dataOneFormationEdite)
+    await axios.put(`${baseURL}/update-formation/${editeFormation._id}`,  dataOneFormationEdite)
       .then(res => {
         getFormation()
-        setEditeShowModal(false)
+        setEditeModal(false)
       })
       .catch(err => console.log(err))
+  }
+
+  const deleteOneFormation = async (id) => {
+    await axios.delete(`${baseURL}/delete-formation/${id}`)
+    .then(res => {
+      getFormation()
+    })
+    .catch(err => console.log(err))
   }
 
   const getFormation = async () => {
@@ -119,11 +128,10 @@ const FormationAdmin = () => {
         </div>
         : null}
 
-      {editeShowModal ?
+      {editeModal ?
         <div>
-
           <div className={`duration-300 p-3 font-bold text-3xl`}>
-            <h1>Edite Formation</h1>
+            <h1>Update Formation</h1>
           </div>
           <form className={`duration-500 p-4 pt-9`}>
             {modalOrganisme.map((addmodal, index) => (
@@ -143,8 +151,8 @@ const FormationAdmin = () => {
                 </label>
               </div>
             </div>
-            <Button type="submit" onClick={() => { setEditeShowModal(false) }} className="text-white bg-[#9999FF] hover:bg-[#9999FF] mr-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Cancel" />
-            <Button type="button" onClick={editeDataFormation} className="text-white bg-[#9999FF] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-[#9999FF] dark:focus:ring-blue-300" btn="Update" />
+            <Button type="submit" onClick={() => { setEditeModal(false) }} className="text-white bg-[#9999FF] hover:bg-[#9999FF] mr-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Cancel" />
+            <Button type="button" onClick={editeDataFormation} className="text-white bg-[#9999FF] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-[#9999FF] dark:focus:ring-blue-300" btn="Create" />
           </form>
         </div>
         : null}
@@ -161,13 +169,13 @@ const FormationAdmin = () => {
                 <p className='text-sm font-normal mb-2' >{getOneFormation.description}</p>
               </div>
               <div className='m-4 flex items-center'>
-                <Button type='button' onClick={() => { setEditeShowModal(true); setEditeFormation(getOneFormation) }} className='mr-2 text-2xl text-[#9999FF]' btn={<FiEdit />} />
-                <Button type='button' className='text-3xl text-[#9999FF]' btn={<MdDeleteOutline />} />
+                <Button type='button' onClick={() => { setEditeModal(true); setEditeFormation(getOneFormation) }} className='mr-2 text-2xl text-[#9999FF]' btn={<FiEdit />} />
+                <Button type='button' onClick={(e) => {e.preventDefault(); deleteOneFormation(getOneFormation._id)}} className='text-3xl text-[#9999FF]' btn={<MdDeleteOutline />} />
               </div>
             </div>
           </div>
         ))}
-        <Button type='submit' onClick={() => { setShowModal(true); setEditeShowModal(false) }} className='w-16 h-16 z-10 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', right: '25px' }} btn={<IoIosAddCircle />} />
+        <Button type='submit' onClick={() => { setShowModal(true); setEditeModal(false) }} className='w-16 h-16 z-10 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', right: '25px' }} btn={<IoIosAddCircle />} />
       </div>
     </div>
   )

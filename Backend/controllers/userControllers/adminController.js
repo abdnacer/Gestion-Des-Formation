@@ -58,15 +58,15 @@ const getAdmin = async (req, res) => {
   } else throw Error('Token not Found')
 }
 
-// const getDataUser = async (req, res) => {
-//   const id_role = '63b2b97f5dd2a6b85bb15d57'
+const getDataUser = async (req, res) => {
+  const id_role = '63b2b97f5dd2a6b85bb15d57'
 
-//   const users = await User.find({ role: id_role })
-//     .populate({ path: 'organisme', model: Organisme })
-//     .populate({ path: 'formation', model: Formation })
+  const users = await User.find({ role: id_role })
+    .populate({ path: 'organisme', model: Organisme })
+    .populate({ path: 'formation', model: Formation })
 
-//   res.json({ users })
-// }
+  res.json({ users })
+}
 
 const updateDataUser = async (req, res) => {
   const { id } = req.params
@@ -121,7 +121,7 @@ const getDataHistorique = async (req, res) => {
 module.exports = {
   addEmploye,
   getAdmin,
-  // getDataUser,
+  getDataUser,
   updateDataUser,
   getDataHistorique
 }

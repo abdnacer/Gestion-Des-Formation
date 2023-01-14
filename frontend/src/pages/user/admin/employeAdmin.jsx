@@ -34,13 +34,13 @@ const EmployeAdmin = () => {
 
   const onChangeEdite = (e) => {
     setEditeDataEmploye({ ...editeDataEmploye, [e.target.name]: e.target.value })
-    console.log(editeDataEmploye)
   }
 
   const addOneEmploye = async () => {
     await axios.post(`${baseUrl}/admin/add-employe`, addEmploye)
       .then(res => {
-        window.location.reload(false)
+        getEmploye()
+        setShowModal(false)
       })
       .catch(err => console.log(err))
   }
@@ -48,15 +48,17 @@ const EmployeAdmin = () => {
   const updateEmploye = async() => {
     await axios.put(`${baseUrl}/admin/update-user/${editeDataEmploye._id}`, editeDataEmploye)
     .then(res => {
-      window.location.reload(false)
+      getEmploye()
+      setShowEditModal(false)
     })
     .catch(err => console.log(err))
   }
 
   const getEmploye = async () => {
-    await axios.get(`${baseUrl}/employe`)
+    await axios.get(`${baseUrl}/admin/user`)
       .then(res => {
-        setGetDataEmploye(res.data.userEmploye)
+        console.log(res.data)
+        setGetDataEmploye(res.data.users)
       })
       .catch((err) => {
         console.log(err)
@@ -138,7 +140,7 @@ const EmployeAdmin = () => {
               </select>
             </div>
             <Button type="submit" onClick={() => { setShowEditModal(false) }} className="text-white bg-[#9999FF] hover:bg-[#9999FF] mr-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Cancel" />
-            <Button type="button" onClick={updateEmploye} className="text-white bg-[#9999FF] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-[#9999FF] dark:focus:ring-blue-300" btn="Create" />
+            <Button type="button" onClick={updateEmploye} className="text-white bg-[#9999FF] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-[#9999FF] dark:focus:ring-blue-300" btn="Update" />
           </form>
         </div>
         : null}
@@ -169,12 +171,12 @@ const EmployeAdmin = () => {
                 <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
                   {employe.organisme[0].name}
                 </td>
-                {/* <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  {employe.formation[0].name}
+                <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
+                  {`${employe.formation.length > 0 ? employe.formation[0].name : '---'}`}
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  <span>{employe.formation[0].debut}</span> - <span>{employe.formation[0].fin}</span>
-                </td> */}
+                  {`${employe.formation.length > 0 ? employe.formation[0].debut + "-" + employe.formation[0].fin : '---'}`}
+                </td>
                 <td className="py-4 px-6 flex items-center">
                   <Button type='button' onClick={() => { setShowEditModal(true); setShowModal(false); setEditeDataEmploye(employe) }} className="text-black text-xl mr-2" btn={<FiEdit />} />
                 </td>
