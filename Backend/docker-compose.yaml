@@ -1,9 +1,0 @@
-version:  "3"
-services:
-  server:
-    container_name: server
-    build:
-      dockerfile: Dockerfile
-    command: ["node","index.js"]
-    ports:
-      - 8080:8080

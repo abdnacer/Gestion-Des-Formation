@@ -1,5 +1,3 @@
-
-
 export const isAuth = () => {
 
   const role = localStorage.getItem('role')
