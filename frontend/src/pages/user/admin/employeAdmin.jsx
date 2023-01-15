@@ -1,10 +1,10 @@
 import { React, useState, useEffect } from 'react'
 import { FiEdit } from 'react-icons/fi'
-import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { IoIosAddCircle } from 'react-icons/io'
 import Input from '../../../components/Input'
 import Button from '../../../components/Button'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
 
 const EmployeAdmin = () => {
 
@@ -39,25 +39,57 @@ const EmployeAdmin = () => {
   const addOneEmploye = async () => {
     await axios.post(`${baseUrl}/admin/add-employe`, addEmploye)
       .then(res => {
+
+        toast.warn(<span style={{ fontSize: '18px' }}>🦄 {res.data}</span>, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
         getEmploye()
         setShowModal(false)
       })
       .catch(err => console.log(err))
   }
 
-  const updateEmploye = async() => {
+  const updateEmploye = async () => {
     await axios.put(`${baseUrl}/admin/update-user/${editeDataEmploye._id}`, editeDataEmploye)
-    .then(res => {
-      getEmploye()
-      setShowEditModal(false)
-    })
-    .catch(err => console.log(err))
+      .then(res => {
+
+        toast.success(<span style={{ fontSize: '18px' }}>🦄 {res.data}</span>, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+        
+        getEmploye()
+        setShowEditModal(false)
+      })
+      .catch(err => toast.error(<span style={{ fontSize: '18px' }}>🦄 {err.response.data}</span>, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }))
   }
 
   const getEmploye = async () => {
     await axios.get(`${baseUrl}/admin/user`)
       .then(res => {
-        console.log(res.data)
         setGetDataEmploye(res.data.users)
       })
       .catch((err) => {
@@ -93,7 +125,6 @@ const EmployeAdmin = () => {
     <div>
       {showModal ?
         <div>
-
           <div className={`duration-300 p-3 font-bold text-3xl`}>
             <h1>Added Employe</h1>
           </div>
@@ -144,10 +175,11 @@ const EmployeAdmin = () => {
           </form>
         </div>
         : null}
+
       <div className={`duration-300 p-3 font-bold text-3xl`}>
         <h1>List Employe</h1>
       </div>
-      <div className={` duration-300 overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
+      <div className={` duration-400 overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -169,7 +201,7 @@ const EmployeAdmin = () => {
                   {employe.first_name} {employe.last_name}
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  {employe.organisme[0].name}
+                  {employe.organisme[0].name} 
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
                   {`${employe.formation.length > 0 ? employe.formation[0].name : '---'}`}
@@ -185,7 +217,8 @@ const EmployeAdmin = () => {
           </tbody>
         </table>
       </div>
-      <Button type='submit' onClick={() => {setShowModal(true); setShowEditModal(false)}} className='w-16 h-16 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', right: '25px' }} btn={<IoIosAddCircle />} />
+      <Button type='submit' onClick={() => { setShowModal(true); setShowEditModal(false) }} className='w-16 h-16 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', right: '25px' }} btn={<IoIosAddCircle />} />
+      <ToastContainer />
     </div>
   )
 }

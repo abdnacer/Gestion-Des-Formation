@@ -5,6 +5,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { IoIosAddCircle } from 'react-icons/io'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Organisme = () => {
 
@@ -15,7 +16,7 @@ const Organisme = () => {
 
   const [getOrganisme, setGetOrganisme] = useState([])
   const [addOrganisme, setAddOrganisme] = useState([])
-  
+
   const [editeOrganisme, setEditeOrganisme] = useState({ name: '', phone: '', ville: '', address: '' })
 
   const modalOrganisme = [
@@ -36,10 +37,21 @@ const Organisme = () => {
       })
   }
 
-  const addOneOrganisme = async (e) => {
-    e.preventDefault()
+  const addOneOrganisme = async () => {
     await axios.post(`${baseUrl}/add-organisme`, addOrganisme)
       .then(res => {
+
+        toast.warn(<span style={{ fontSize: '18px' }}>🦄 {res.data}</span>, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
         getDataOrganisme()
         setShowModal(false)
       })
@@ -54,8 +66,20 @@ const Organisme = () => {
       phone: editeOrganisme.phone
     })
       .then(res => {
-        window.location.reload(false)
-        console.log(res)
+
+        toast.warn(<span style={{ fontSize: '18px' }}>🦄 {res.data}</span>, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
+        getDataOrganisme()
+        setEditModal(false)
       })
       .catch(err => console.log(err))
   }
@@ -63,6 +87,18 @@ const Organisme = () => {
   const deleteOneOrganisme = async (id) => {
     await axios.delete(`${baseUrl}/delete-organisme/${id}`)
       .then(res => {
+
+        toast.warn(<span style={{ fontSize: '18px' }}>🦄 {res.data}</span>, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
         getDataOrganisme()
       })
       .catch(err => {
@@ -168,6 +204,7 @@ const Organisme = () => {
         </table>
       </div>
       <Button type='submit' onClick={() => { setShowModal(true); setEditModal(false) }} className='w-16 h-16 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', right: '25px' }} btn={<IoIosAddCircle />} />
+      <ToastContainer />
     </div>
   )
 }

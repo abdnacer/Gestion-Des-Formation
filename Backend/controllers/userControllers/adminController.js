@@ -96,7 +96,7 @@ const updateDataUser = async (req, res) => {
     })
 
     if (getHistorique) {
-      throw Error('Change The Content Of Input')
+      res.status(401).send('Change The Content Of Input')
     }
     else {
       const story_data_historique = await Historique.create(addDataHistorique)
@@ -118,10 +118,21 @@ const getDataHistorique = async (req, res) => {
   else throw Error('Historique Not Found')
 }
 
+const statistiqueAdmin = async (req, res) => {
+  const idRole = '63b2b97f5dd2a6b85bb15d57'
+
+  const employe = await User.find({role: idRole}).count()
+  const formation = await Formation.find().count()
+  const organisme = await Organisme.find().count()
+  res.send({employe, formation, organisme})
+
+}
+
 module.exports = {
   addEmploye,
   getAdmin,
   getDataUser,
   updateDataUser,
-  getDataHistorique
+  getDataHistorique,
+  statistiqueAdmin
 }

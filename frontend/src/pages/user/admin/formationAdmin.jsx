@@ -1,14 +1,14 @@
 import { React, useState, useEffect } from 'react'
 import axios from 'axios'
-import ReactImg from '../../../assets/Reactjs.jpg'
+// import ReactImg from '../../../assets/Reactjs.jpg'
 import { IoIosAddCircle } from 'react-icons/io'
 import { FiEdit } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 import Input from '../../../components/Input'
 import Button from '../../../components/Button'
+import { ToastContainer, toast } from 'react-toastify'
 
-
-// const imagePath = 'http://localhost:8088/images'
+const imagePath = 'http://localhost:8088'
 const baseURL = 'http://localhost:8088/api/user'
 
 const FormationAdmin = () => {
@@ -23,7 +23,6 @@ const FormationAdmin = () => {
   const [formationImgEdite, setFormationImgEdite] = useState()
 
   const modalOrganisme = [
-    // value: `${editeFormation.name}`,
     { name: 'name', type: 'text', value: `${editeFormation.name}`, id: 'name', placeholder: 'Name' },
     { name: 'description', type: 'text', value: `${editeFormation.description}`, id: 'description', placeholder: 'Description' },
     { name: 'debut', type: 'date', value: `${editeFormation.debut}`, id: 'debut', placeholder: 'Date Debut' },
@@ -50,6 +49,18 @@ const FormationAdmin = () => {
 
     await axios.post(`${baseURL}/add-formation`, dataOneFormation)
       .then(res => {
+
+        toast.warn(<span style={{ fontSize: '18px' }}>🦄 {res.data}</span>, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
         getFormation()
         setShowModal(false)
       })
@@ -66,8 +77,20 @@ const FormationAdmin = () => {
     dataOneFormationEdite.append('fin', editeFormation.fin)
     dataOneFormationEdite.append('images', formationImgEdite)
 
-    await axios.put(`${baseURL}/update-formation/${editeFormation._id}`,  dataOneFormationEdite)
+    await axios.put(`${baseURL}/update-formation/${editeFormation._id}`, dataOneFormationEdite)
       .then(res => {
+
+        toast.warn(<span style={{ fontSize: '18px' }}>🦄 {res.data}</span>, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
         getFormation()
         setEditeModal(false)
       })
@@ -76,10 +99,22 @@ const FormationAdmin = () => {
 
   const deleteOneFormation = async (id) => {
     await axios.delete(`${baseURL}/delete-formation/${id}`)
-    .then(res => {
-      getFormation()
-    })
-    .catch(err => console.log(err))
+      .then(res => {
+
+        toast.warn(<span style={{ fontSize: '18px' }}>🦄 {res.data}</span>, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+
+        getFormation()
+      })
+      .catch(err => console.log(err))
   }
 
   const getFormation = async () => {
@@ -152,7 +187,7 @@ const FormationAdmin = () => {
               </div>
             </div>
             <Button type="submit" onClick={() => { setEditeModal(false) }} className="text-white bg-[#9999FF] hover:bg-[#9999FF] mr-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Cancel" />
-            <Button type="button" onClick={editeDataFormation} className="text-white bg-[#9999FF] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-[#9999FF] dark:focus:ring-blue-300" btn="Create" />
+            <Button type="button" onClick={editeDataFormation} className="text-white bg-[#9999FF] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-[#9999FF] dark:focus:ring-blue-300" btn="Update" />
           </form>
         </div>
         : null}
@@ -161,21 +196,22 @@ const FormationAdmin = () => {
         {formation.map((getOneFormation, index) => (
           <div key={index} className='max-w-sm mb-4 bg-white rounded-lg shadow-md mt-4 drop-shadow-2xl mr-6'>
             <div style={{ width: '23rem', border: 'none' }} className='bg-white flex justify-center flex-col shadow-xl'>
-              <img variant="top" src={ReactImg} style={{ height: '14rem' }} className='m-4' />
-              {/* <img variant="top" src={`${imagePath}/${getOneFormation.images}`} style={{ height: '14rem' }} className='m-4' /> */}
+              {/* <img variant="top" src={ReactImg} style={{ height: '14rem' }} className='m-4' /> */}
+              <img variant="top" src={`${imagePath}/${getOneFormation.images}`} style={{ height: '14rem' }} className='m-4' />
               <div className='m-3 flex flex-col'>
-                <h2 className='text-2xl font-bold ml-2'>{getOneFormation.name}</h2>
-                <span className='text-[#EFA3C8] text-xs font-light ml-4 mb-3'>{getOneFormation.debut} {getOneFormation.fin}</span>
-                <p className='text-sm font-normal mb-2' >{getOneFormation.description}</p>
+                <h2 className='text-2xl font-bold ml-2'>{getOneFormation === null ? 'You are not assigned Formation' : `${getOneFormation.name}`}</h2>
+                <span className='text-[#EFA3C8] text-xs font-light ml-4 mb-3'>{getOneFormation === null ? 'You are not assigned Formation' : `${getOneFormation.debut + '-' + getOneFormation.fin}`}</span>
+                <p className='text-sm font-normal mb-2' >{getOneFormation === null ? 'You are not assigned Formation' : `${getOneFormation.description}`}</p>
               </div>
               <div className='m-4 flex items-center'>
                 <Button type='button' onClick={() => { setEditeModal(true); setEditeFormation(getOneFormation) }} className='mr-2 text-2xl text-[#9999FF]' btn={<FiEdit />} />
-                <Button type='button' onClick={(e) => {e.preventDefault(); deleteOneFormation(getOneFormation._id)}} className='text-3xl text-[#9999FF]' btn={<MdDeleteOutline />} />
+                <Button type='button' onClick={(e) => { e.preventDefault(); deleteOneFormation(getOneFormation._id) }} className='text-3xl text-[#9999FF]' btn={<MdDeleteOutline />} />
               </div>
             </div>
           </div>
         ))}
         <Button type='submit' onClick={() => { setShowModal(true); setEditeModal(false) }} className='w-16 h-16 z-10 fixed bg-[#00C1FE] rounded-full flex items-center justify-center text-2xl shadow-xl cursor-pointer text-white' style={{ bottom: '25px', right: '25px' }} btn={<IoIosAddCircle />} />
+        <ToastContainer />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL } from "../actions/types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } from "../actions/types";
 
 const user = JSON.parse(localStorage.getItem('user'))
 
@@ -23,12 +23,12 @@ function auth (state = initialState, action) {
         user: null
       }
 
-    // case LOGOUT: 
-    // return{
-    //   ...state,
-    //   isLoggedIn: false,
-    //   user: null
-    // }
+    case LOGOUT_SUCCESS: 
+    return{
+      ...state,
+      isLoggedIn: false,
+      user: null
+    }
     default:
       return state
   }

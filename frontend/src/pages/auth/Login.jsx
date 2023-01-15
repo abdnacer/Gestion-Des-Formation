@@ -5,7 +5,8 @@ import Input from "../../components/Input"
 import Button from "../../components/Button"
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom';
-import apiLogin from "../../actions/auth"
+import { apiLogin } from "../../actions/auth"
+import 'react-toastify/dist/ReactToastify.css'
 
 function Login() {
 
@@ -20,56 +21,19 @@ function Login() {
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
+  const dispatch = useDispatch()
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(apiLogin(user.email, user.password))
   }
 
-  const dispatch = useDispatch()
-  // const navigate = useNavigate ()
-
-  // const select = useSelector(state => state.isLoggedIn);
-
-  // if(select) {
-  //   const role = useSelector(state => state.user.role);
-  //   if(role === 'admin') {
-  //     return <Redirect to="/dashboard/admin" />;
-  //   } else if(role === 'employe') {
-  //     return <Redirect to="/dashboard/employe" />;
-  //   }
-  // } else {
-  //   return <Redirect to="/" />;
-  // }
-
   const select = useSelector((state) => state.isLoggedIn)
 
-
-  if(select){
-      // return <Navigate to='/dashboard/admin' />
-      return <Navigate to='/dashboard/employe' />
+  if (select) {
+    const role = JSON.parse(localStorage.getItem('role'))
+    return <Navigate to={`/dashboard/${role}`} />
   }
-  // const role = useSelector(state => state.user.role)
-  // if(select){
-  //   // return <Navigate to={`/dashboard/${user.role}`} />;
-  //   return <Navigate to="/dashboard/admin" />
-  // }
-
-
-  // const isLoggedIn = useSelector((state) => state.isLoggedIn)
-
-  // if (isLoggedIn) {
-  //   // if (role === 'admin') {
-  //     return <Navigate to="/dashboard/admin" />
-  //   // } else if (role === 'employe') {
-  //   //   return <navigate to="/dashboard/employe" />
-  //   // }
-  // } 
-  // else {
-  //   return <Navigate to="/" />
-  // }
-
-
 
   return (
     <div>

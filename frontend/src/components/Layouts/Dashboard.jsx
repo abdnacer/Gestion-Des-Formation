@@ -8,6 +8,9 @@ import { GiStarFormation } from 'react-icons/gi'
 import { GrOrganization } from 'react-icons/gr'
 import Logo from '../../assets/Logo_white_without_background.png'
 import Profile from '../../assets/profil.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
+import { apiLogout } from '../../actions/auth'
 
 function Sidebar() {
 
@@ -20,6 +23,16 @@ function Sidebar() {
   ]
 
   const [open, setOpen] = useState(true)
+
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(apiLogout())
+  }
+
+  const select = useSelector((state) => state.isLoggedIn)
+  if (!select) {
+    return <Navigate to='/' />
+  }
 
   return (
     <div className=' bg-[#EEE]' style={{ height: "100vh", width: '100%' }}>
@@ -34,10 +47,13 @@ function Sidebar() {
               <h2 className={`${!open ? 'opacity-0 translate-x-28 overflow-hidden' : ''} whitespace-pre duration-500`} style={{ transitionDelay: `${index + 3}00ms` }}>{menu.name}</h2>
             </Link>
             ))}
-            <Link to="" className={`flex items-center text-xl duration-200 gap-3.5 font-medium p-2 hover:bg-[#00C1FE] hover:text-white rounded-md`}>
+            <Link onClick={logout} className={`flex items-center text-xl duration-200 gap-3.5 font-medium p-2 hover:bg-[#00C1FE] hover:text-white rounded-md`}>
               <div><AiOutlineLogout /></div>
               <h2 className={`${!open ? 'opacity-0 translate-x-28 overflow-hidden' : ''} whitespace-pre duration-500`} style={{ transitionDelay: '800ms' }}>Logout</h2>
             </Link>
+            {/* {MenusAdmin.map((menu) => (
+              menu.add ? <button>Add</button> : '')
+            )} */}
           </div>
         </div>
 
