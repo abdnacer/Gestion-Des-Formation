@@ -35,7 +35,8 @@ function Sidebar() {
   }
 
   return (
-    <div className=' bg-[#EEE]' style={{ height: "100vh", width: '100%' }}>
+    // bg-[#EEE]
+    <div>
       <div className='flex relative gap-6' >
         <div className={`${open ? 'w-72' : 'w-16'} fixed bg-[#82C3EC] my-2 ml-2 rounded-xl duration-300 w-72 px-4`} style={{ height: "98%" }}>
           <div className='py-3 flex justify-end'>

@@ -3,8 +3,8 @@ import { Provider } from "react-redux"
 import store from "../store"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // ProtectedRouter 
-import ProtectedEmploye from '../protectedRoute/protectedEmploye'
-import ProtectedAdmin from '../protectedRoute/protectedAdmin'
+// import ProtectedEmploye from '../protectedRoute/protectedEmploye'
+// import ProtectedAdmin from '../protectedRoute/protectedAdmin'
 // Page Auth
 import Login from '../pages/auth/Login'
 import Page404 from '../pages/auth/Page404'
@@ -46,7 +46,7 @@ function RoutesApp() {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
 
-          <Route element={<ProtectedAdmin />}>
+          {/* <Route element={<ProtectedAdmin />}> */}
             <Route path='/dashboard/admin' element={<Dashboard />}>
               <Route path='' element={<DashbordAdmin />} />
               <Route path='employe' element={<EmployeAdmin />} />
@@ -54,15 +54,15 @@ function RoutesApp() {
               <Route path='organisme' element={<OrganismeAdmin />} />
               <Route path='setting' element={<SettingAdmin />} />
             </Route>
-          </Route>
+          {/* </Route> */}
 
-          <Route element={<ProtectedEmploye />}>
+          {/* <Route element={<ProtectedEmploye />}> */}
             <Route path='/dashboard/employe' element={<NavBar />}>
               <Route path='' element={<Home />} />
               <Route path='historique' element={<HistoriqueEmploye />} />
               <Route path='Setting' element={<Setting />} />
             </Route>
-          </Route>
+          {/* </Route> */}
 
           <Route path='*' element={<Page404 />} />
           <Route path='/Page404' element={<Page404 />} />

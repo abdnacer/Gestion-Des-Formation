@@ -59,6 +59,7 @@ const logout = async (req, res) => {
 const generateToken = (id) => {
   const token = jwt.sign({ id }, process.env.SECRET, {
     expiresIn: "30d"
+    // 30min au max
   })
 
   return token

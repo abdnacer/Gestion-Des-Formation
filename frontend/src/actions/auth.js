@@ -1,5 +1,5 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL ,LOGOUT_SUCCESS } from './types'
-import {authLogin , authLogout } from '../services/authServices'
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } from './types'
+import { authLogin, authLogout } from '../services/authServices'
 
 
 export const apiLogin = (email, password) => (dispatch) => {
@@ -21,14 +21,14 @@ export const apiLogin = (email, password) => (dispatch) => {
     })
 }
 
-export const apiLogout = () => (dispatch)=> {
+export const apiLogout = () => (dispatch) => {
   return authLogout()
-  .then(()=>{
-    dispatch({
-      type: LOGOUT_SUCCESS
-    })
+    .then(() => {
+      dispatch({
+        type: LOGOUT_SUCCESS
+      })
 
-  })
+    })
 
 }
 

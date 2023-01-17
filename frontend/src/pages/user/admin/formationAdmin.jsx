@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from 'react'
 import axios from 'axios'
-// import ReactImg from '../../../assets/Reactjs.jpg'
 import { IoIosAddCircle } from 'react-icons/io'
 import { FiEdit } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
@@ -17,8 +16,10 @@ const FormationAdmin = () => {
   const [editeModal, setEditeModal] = useState(false)
 
   const [formation, setFormation] = useState([])
+
   const [addFormation, setAddFormation] = useState([])
   const [editeFormation, setEditeFormation] = useState([])
+
   const [formationImg, setFormationImg] = useState()
   const [formationImgEdite, setFormationImgEdite] = useState()
 
@@ -204,7 +205,7 @@ const FormationAdmin = () => {
                 <p className='text-sm font-normal mb-2' >{getOneFormation === null ? 'You are not assigned Formation' : `${getOneFormation.description}`}</p>
               </div>
               <div className='m-4 flex items-center'>
-                <Button type='button' onClick={() => { setEditeModal(true); setEditeFormation(getOneFormation) }} className='mr-2 text-2xl text-[#9999FF]' btn={<FiEdit />} />
+                <Button type='button' onClick={() => { setEditeModal(true); setShowModal(false); setEditeFormation(getOneFormation) }} className='mr-2 text-2xl text-[#9999FF]' btn={<FiEdit />} />
                 <Button type='button' onClick={(e) => { e.preventDefault(); deleteOneFormation(getOneFormation._id) }} className='text-3xl text-[#9999FF]' btn={<MdDeleteOutline />} />
               </div>
             </div>
