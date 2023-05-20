@@ -6,9 +6,10 @@ const Historique = require('../../models/historique')
 const Storage = require('local-storage')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const role = require('../../models/role')
 
 const addEmploye = async (req, res) => {
-  const role = '63b2b97f5dd2a6b85bb15d57'
+  const role_id = await role.aggregate([{ $match: { name: "employe" } }]);
   const { first_name, last_name, phone, email, password, organisme } = req.body
 
   if (first_name == '' || last_name == '' || phone == '' || email == '' || password == '' || organisme == '') throw Error('Please Fill All The Fields')
@@ -28,7 +29,7 @@ const addEmploye = async (req, res) => {
     phone: phone,
     email: email,
     password: hash_password,
-    role: role,
+    role: role_id[0]._id,
     organisme: organisme
   }
 
@@ -59,7 +60,7 @@ const getAdmin = async (req, res) => {
 }
 
 const getDataUser = async (req, res) => {
-  const id_role = '63b2b97f5dd2a6b85bb15d57'
+  const id_role = await role.aggregate([{ $match: { name: "employe" } }]);
 
   const users = await User.find({ role: id_role })
     .populate({ path: 'organisme', model: Organisme })
@@ -119,7 +120,8 @@ const getDataHistorique = async (req, res) => {
 }
 
 const statistiqueAdmin = async (req, res) => {
-  const idRole = '63b2b97f5dd2a6b85bb15d57'
+  const role_id = await role.aggregate([{ $match: { name: "admin" } }]);
+  const idRole = role_id[0]._id
 
   const employe = await User.find({role: idRole}).count()
   const formation = await Formation.find().count()

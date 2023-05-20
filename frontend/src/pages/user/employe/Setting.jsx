@@ -28,13 +28,13 @@ const [settingEmploye, setSettingEmploye] = useState([])
   return (
     <div>
       <div className={`duration-300 p-3 font-bold text-3xl`}>
-        <h1>Setting</h1>
+        <h1>User Information</h1>
       </div>
       <form className={`duration-300 p-4 pt-9`}>
         {
           formSetting.map((form, index) => (
             <div key={index} className="relative z-0 mb-6 w-full group">
-              <Input key={index} type={form.type} value={form.value} name={form.name} id={form.id} className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0 focus:border-blue-300 peer" placeholder={form.placeholder} required />
+              <Input key={index} type={form.type} value={form.value} name={form.name} id={form.id} className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600  focus:outline-none focus:ring-0 focus:border-blue-300 peer" placeholder={form.placeholder} required />
             </div>
           ))
         }

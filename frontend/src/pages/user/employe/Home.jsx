@@ -6,13 +6,12 @@ const imagePath = 'http://localhost:8088'
 
 const Home = () => {
 
-  const [formationEmploye, setFormationEmploye] = useState([])
-  const [organismeEmploye, setOrganismeEmploye] = useState([])
+  const [formationEmploye, setFormationEmploye] = useState({})
+  const [organismeEmploye, setOrganismeEmploye] = useState({})
 
   const getDataEmployeFormation = async () => {
     await axios.get('http://localhost:8088/api/user/employe/formation')
       .then(res => {
-        console.log(res.data)
         setFormationEmploye(res.data.formation)
         setOrganismeEmploye(res.data.organisme)
       })
@@ -31,10 +30,10 @@ const Home = () => {
             {/* <img variant="top" src={ReactImg} style={{ height: '14rem' }} className='m-4' /> */}
             <img variant="top" src={`${imagePath}/${formationEmploye.images}`} style={{ height: '14rem' }} className='m-4' />
             <div className='m-3 flex flex-col'>
-              <h2 className='text-2xl font-bold ml-2'>{formationEmploye === null ? 'You are not assigned Formation' : `${formationEmploye.name}`}</h2>
-              <span className='text-[#EFA3C8] text-xs font-light ml-4 mb-3'>{formationEmploye === null ? 'You are not assigned Date Formation' : `${formationEmploye.debut + '-' + formationEmploye.fin}`}</span>
+              <h2 className='text-2xl font-bold ml-2'>{formationEmploye === null ? 'You are not assigned Formation' : `${formationEmploye?.name}`}</h2>
+              <span className='text-[#EFA3C8] text-xs font-light ml-4 mb-3'>{formationEmploye === null ? 'You are not assigned Date Formation' : `${formationEmploye?.debut + '-' + formationEmploye?.fin}`}</span>
               <p className='text-sm font-normal mb-2'>
-                {organismeEmploye === null ? 'You are not assigned Organisme' : `Organisme Pour Lire Cette Formation On : ${organismeEmploye.name}`}
+                {organismeEmploye === null ? 'You are not assigned Organisme' : `Organisme Pour Lire Cette Formation On : ${organismeEmploye?.name}`}
               </p>
             </div>
           </div>

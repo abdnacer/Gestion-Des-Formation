@@ -17,7 +17,7 @@ const addOrganisme = async (req, res) => {
   }
 
   await Organisme.create(newOrganisme)
-    .then(data => {
+    .then(() => {
       res.send('Organisme Created')
     })
     .catch(err => {

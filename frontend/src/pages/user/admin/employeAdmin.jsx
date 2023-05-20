@@ -131,7 +131,7 @@ const EmployeAdmin = () => {
           <form className={`duration-500 p-4 pt-9`}>
             {modalOrganisme.map((addmodal, index) => (
               <div key={index} className="relative z-0 mb-6 w-full group">
-                <Input type={addmodal.type} name={addmodal.name} onChange={onChangeAdd} id={addmodal.id} className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-blue-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-blue-300 peer" placeholder={addmodal.placeholder} required />
+                <Input type={addmodal.type} name={addmodal.name} onChange={onChangeAdd} id={addmodal.id} className="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-[#9999FF] appearance-none dark:text-black dark:border-[#000] dark:focus:border-black focus:outline-none focus:ring-0 focus:border-blue-300 peer" placeholder={addmodal.placeholder} required />
               </div>
             ))}
             <div className="mb-2">
@@ -198,16 +198,16 @@ const EmployeAdmin = () => {
                   {index + 1}
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  {employe.first_name} {employe.last_name}
+                  {employe?.first_name} {employe?.last_name}
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  {employe.organisme[0].name} 
+                  {employe?.organisme[0].name} 
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  {`${employe.formation.length > 0 ? employe.formation[0].name : '---'}`}
+                  {`${employe.formation?.length > 0 ? employe?.formation[0].name : '---'}`}
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  {`${employe.formation.length > 0 ? employe.formation[0].debut + "-" + employe.formation[0].fin : '---'}`}
+                  {`${employe?.formation.length > 0 ? employe?.formation[0].debut + "-" + employe?.formation[0].fin : '---'}`}
                 </td>
                 <td className="py-4 px-6 flex items-center">
                   <Button type='button' onClick={() => { setShowEditModal(true); setShowModal(false); setEditeDataEmploye(employe) }} className="text-black text-xl mr-2" btn={<FiEdit />} />

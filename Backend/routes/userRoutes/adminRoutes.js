@@ -12,12 +12,12 @@ const { tryCatch } = require('../../middleware/tryCatch')
 const { errorHandler } = require('../../middleware/errorHandler')
 const { userPermission } = require('../../middleware/permission')
 
-router.post('/admin/add-employe', userPermission, tryCatch(addEmploye))
+router.post('/admin/add-employe',  tryCatch(addEmploye))
 router.get('/admin', userPermission, tryCatch(getAdmin))
-router.get('/admin/user', userPermission, tryCatch(getDataUser))
+router.get('/admin/user',  tryCatch(getDataUser))
 router.put('/admin/update-user/:id', userPermission, tryCatch(updateDataUser))
 router.get('/admin/historique', userPermission, tryCatch(getDataHistorique))
-router.get('/admin/statistique', userPermission, tryCatch(statistiqueAdmin))
+router.get('/admin/statistique',  tryCatch(statistiqueAdmin))
 
 router.use(errorHandler)
 

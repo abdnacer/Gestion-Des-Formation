@@ -1,5 +1,10 @@
 version: '3.8'
 services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
   api:
     build: ./Backend
     container_name: api
@@ -17,11 +22,4 @@ services:
     volumes:
       - ./frontend/src:/app/src
 
-  mongodb:
-    image: mongo:latest
-    volumes:
-      - mongodb_data:/data/db
-    ports:
-      - "27017:27017"
-volumes:
-  mongodb_data:
+ 

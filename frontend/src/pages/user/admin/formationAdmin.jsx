@@ -143,7 +143,7 @@ const FormationAdmin = () => {
           <form className={`duration-500 p-4 pt-9`}>
             {modalOrganisme.map((addmodal, index) => (
               <div key={index} className="relative z-0 mb-6 w-full group">
-                <Input type={addmodal.type} name={addmodal.name} onChange={onChangeAdd} id={addmodal.id} className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-blue-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-blue-300 peer" placeholder={addmodal.placeholder} required />
+                <Input type={addmodal.type} name={addmodal.name} onChange={onChangeAdd} id={addmodal.id} className="block py-2.5 px-0 w-full text-sm text-[#333] bg-transparent border-0 border-b-2 border-black appearance-none dark:text-[#333] dark:border-[#333] dark:focus:border-[#82C3EC] focus:outline-none focus:ring-0 focus:border-[#82C3EC] peer" placeholder={addmodal.placeholder} required />
               </div>
             ))}
             <div className="mb-2">
